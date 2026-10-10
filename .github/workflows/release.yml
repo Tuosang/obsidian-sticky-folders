@@ -1,0 +1,26 @@
+# Push a tag equal to the version in manifest.json (e.g. 0.1.0, no "v") to publish a draft release
+# with the three files Obsidian and BRAT install: main.js, manifest.json, styles.css.
+name: Release
+
+on:
+  push:
+    tags: ['*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - name: Create draft release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --draft dist/main.js dist/manifest.json dist/styles.css

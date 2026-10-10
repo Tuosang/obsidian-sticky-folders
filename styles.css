@@ -1,0 +1,92 @@
+/* Zero-height sticky host: first child of .nav-files-container, so scrolling over it still scrolls the list. */
+.nav-files-container > .sf-host {
+	position: sticky;
+	top: 0;
+	height: 0;
+	z-index: 3;
+	pointer-events: none;
+}
+
+.sf-host .sf-row {
+	position: absolute;
+	background-color: var(--sf-bg, var(--background-secondary));
+	pointer-events: auto;
+}
+
+.sf-host .sf-row.sf-last {
+	box-shadow: 0 1px 0 var(--background-modifier-border);
+}
+
+.sf-host .sf-item,
+.sf-host .sf-item > .tree-item-self {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+/* Indent guides of the levels above a pinned row. */
+.sf-host .sf-guide {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: var(--nav-indentation-guide-width, 1px);
+	background-color: var(--nav-indentation-guide-color);
+	pointer-events: none;
+}
+
+.sf-host .sf-guide.sf-on {
+	width: 2px;
+	background-color: var(--interactive-accent);
+}
+
+/* Merged row: grey path of the levels it holds, the nearest folder in full at the end. */
+.sf-host .tree-item-inner.sf-merged {
+	display: flex;
+	min-width: 0;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.sf-host .sf-path {
+	flex: 0 1 auto;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: var(--text-faint);
+}
+
+.sf-host .sf-name {
+	flex: 0 0 auto;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.sf-host .sf-seg:hover {
+	color: var(--text-accent);
+}
+
+/* Hovered folder (guide, pinned row or grey name): its name turns bold accent wherever it shows,
+   in the real row and in the pinned rows. */
+.nav-files-container .nav-folder.sf-hl > .tree-item-self .tree-item-inner,
+.sf-host .sf-row.sf-on .tree-item-inner,
+.sf-host .sf-seg.sf-on {
+	color: var(--text-accent);
+	font-weight: var(--font-semibold);
+}
+
+/* Hovered folder: its real indent guide turns accent for the whole range. */
+.nav-files-container .nav-folder.sf-hl > .tree-item-children {
+	border-inline-start-color: var(--interactive-accent) !important;
+	box-shadow: inset 1px 0 0 var(--interactive-accent);
+}
+
+.nav-files-container.sf-guide-hover,
+.nav-files-container.sf-guide-hover * {
+	cursor: pointer !important;
+}
+
+.sf-setting-value {
+	min-width: 3em;
+	color: var(--text-muted);
+	font-size: var(--font-ui-small);
+}
