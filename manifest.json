@@ -1,7 +1,7 @@
 {
 	"id": "sticky-folders",
 	"name": "Sticky Folders",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"minAppVersion": "1.13.0",
 	"description": "Keeps parent folders pinned at the top of the file explorer while you scroll, merging deep paths into one row and highlighting a folder's range from its indent guide.",
 	"author": "Kevin Yan",

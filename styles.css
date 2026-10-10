@@ -77,11 +77,12 @@
 
 /* Hovered folder: its real indent guide turns accent for the whole range. */
 .nav-files-container .nav-folder.sf-hl > .tree-item-children {
-	border-inline-start-color: var(--interactive-accent) !important;
+	border-inline-start-color: var(--interactive-accent);
 	box-shadow: inset 1px 0 0 var(--interactive-accent);
 }
 
-.nav-files-container.sf-guide-hover,
-.nav-files-container.sf-guide-hover * {
-	cursor: pointer !important;
+/* Explorer rows take their cursor from --cursor, so the whole list shows a pointer over a guide. */
+.nav-files-container.sf-guide-hover {
+	--cursor: pointer;
+	cursor: pointer;
 }

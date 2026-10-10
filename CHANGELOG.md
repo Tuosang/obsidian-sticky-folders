@@ -2,6 +2,11 @@
 
 All notable changes to Sticky Folders are listed here. Versions follow [semantic versioning](https://semver.org/).
 
+## 0.1.2 — 2026-10-10
+
+- Styles no longer use `!important`: the hovered guide wins by specificity, and the pointer over a guide comes from Obsidian's `--cursor` variable.
+- Release files carry GitHub artifact attestations, so anyone can verify they were built from this repository.
+
 ## 0.1.1 — 2026-10-10
 
 - Settings use Obsidian's declarative settings, so they appear in the settings search and can be reset to their defaults. Requires Obsidian 1.13 or later.
