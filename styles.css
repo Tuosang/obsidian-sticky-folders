@@ -84,9 +84,3 @@
 .nav-files-container.sf-guide-hover * {
 	cursor: pointer !important;
 }
-
-.sf-setting-value {
-	min-width: 3em;
-	color: var(--text-muted);
-	font-size: var(--font-ui-small);
-}

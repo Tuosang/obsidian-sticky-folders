@@ -1,0 +1,15 @@
+name: Idea / 建议
+description: Suggest an improvement. 提一个改进建议。
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do? / 你想做到什么？
+      description: The situation and what gets in the way. 遇到的情况，以及现在哪里不方便。
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help? / 怎样会更好？

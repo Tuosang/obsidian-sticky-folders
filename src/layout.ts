@@ -22,9 +22,14 @@ export interface Slot {
 	merged: boolean;
 }
 
-/** Line (px from the top of the visible list) that decides whether level k gets pinned. */
+/**
+ * Line (px from the top of the visible list) that decides whether level k gets pinned: a folder
+ * is pinned while its subtree crosses the line and its own row is above it. Levels that get their
+ * own row use the top of that row; levels that would merge use the bottom of the pinned rows, so
+ * the merged row always names the folders of the first row you can actually see below it.
+ */
 export function probeLine(k: number, rowH: number, maxRows: number): number {
-	return Math.min(k, Math.max(1, maxRows) - 1) * rowH;
+	return Math.min(k, Math.max(1, Math.floor(maxRows))) * rowH;
 }
 
 /**

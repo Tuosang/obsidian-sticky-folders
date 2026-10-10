@@ -1,0 +1,38 @@
+name: Bug report / 问题反馈
+description: Something doesn't look or work right. 显示或功能不正常。
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened? / 发生了什么？
+      description: What you expected and what you saw instead. Screenshots help a lot. 期望的效果和实际看到的，附截图更好。
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce / 复现步骤
+      placeholder: |
+        1. Open a folder five levels deep
+        2. Scroll down
+        3. ...
+  - type: input
+    id: plugin
+    attributes:
+      label: Sticky Folders version / 插件版本
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: obsidian
+    attributes:
+      label: Obsidian version and OS / Obsidian 版本和系统
+      placeholder: "1.13.7, macOS 15"
+    validations:
+      required: true
+  - type: input
+    id: theme
+    attributes:
+      label: Theme and other explorer plugins / 主题和其他文件列表相关插件
+      placeholder: "Default theme, no other plugins"

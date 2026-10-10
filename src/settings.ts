@@ -32,7 +32,6 @@ export class StickySettingTab extends PluginSettingTab {
 		const t = strings();
 		containerEl.empty();
 
-		let rowsLabel: HTMLElement | null = null;
 		new Setting(containerEl)
 			.setName(t.rowsName)
 			.setDesc(t.rowsDesc)
@@ -42,12 +41,8 @@ export class StickySettingTab extends PluginSettingTab {
 				.setDynamicTooltip()
 				.onChange(async value => {
 					s.maxRows = value;
-					rowsLabel?.setText(t.rows(value));
 					await this.plugin.saveSettings();
-				}))
-			.then(setting => {
-				rowsLabel = setting.controlEl.createSpan({ cls: 'sf-setting-value', text: t.rows(s.maxRows) });
-			});
+				}));
 
 		new Setting(containerEl)
 			.setName(t.mergeName)

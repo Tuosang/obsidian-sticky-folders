@@ -47,9 +47,18 @@ test('the row of a folder that is ending is pushed up by the next sibling', () =
 	assert.equal(layoutStack(outer, H, 4, 'outer')[0].top, -5);
 });
 
-test('probe lines stop at the last row', () => {
-	assert.deepEqual([0, 1, 2, 3, 4, 5].map(k => probeLine(k, H, 4)), [0, 25, 50, 75, 75, 75]);
-	assert.deepEqual([0, 1, 2].map(k => probeLine(k, H, 1)), [0, 0, 0]);
+test('levels that would merge are probed at the bottom of the pinned rows', () => {
+	assert.deepEqual([0, 1, 2, 3, 4, 5].map(k => probeLine(k, H, 4)), [0, 25, 50, 75, 100, 100]);
+	assert.deepEqual([0, 1, 2].map(k => probeLine(k, H, 1)), [0, 25, 25]);
+});
+
+test('a folder collapsed in place is not hidden behind the merged row of its previous sibling', () => {
+	// Collapsing a level-4 folder (cap 4) puts its row at the stack bottom (slot 4, 100 px).
+	// The previous sibling's subtree ends exactly there, so it must not be probed as pinned.
+	const slot = slotAfterCollapse(4, 4);
+	const previousSiblingBottom = slot * H;
+	assert.equal(slot, 4);
+	assert.ok(!(previousSiblingBottom > probeLine(4, H, 4)));
 });
 
 test('a collapsed folder lands under the rows that stay pinned', () => {
