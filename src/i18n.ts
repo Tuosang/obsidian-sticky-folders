@@ -1,4 +1,5 @@
 // Settings text in Chinese or English, following Obsidian's interface language.
+import { getLanguage } from 'obsidian';
 
 const en = {
 	rowsName: 'Max pinned rows',
@@ -28,10 +29,13 @@ const zh: typeof en = {
 
 export type Strings = typeof en;
 
-/** Obsidian's interface language. When it follows the system, only i18next knows the real value. */
+/**
+ * Obsidian's interface language. The language Obsidian actually renders comes first: when the
+ * app follows the system language, getLanguage() can still report English.
+ */
 function language(): string {
 	const i18next = (window as unknown as { i18next?: { language?: string } }).i18next;
-	return i18next?.language || window.localStorage.getItem('language') || navigator.language || 'en';
+	return i18next?.language || getLanguage() || 'en';
 }
 
 export function strings(): Strings {

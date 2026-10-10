@@ -1,4 +1,5 @@
-import { App, PluginSettingTab, Setting } from 'obsidian';
+import { App, PluginSettingTab } from 'obsidian';
+import type { SettingDefinitionItem } from 'obsidian';
 import type { MergeMode } from './layout.ts';
 import type StickyFoldersPlugin from './main.ts';
 import { strings } from './i18n.ts';
@@ -21,62 +22,59 @@ export const DEFAULT_SETTINGS: StickySettings = {
 	guideClick: true,
 };
 
+type Key = keyof StickySettings;
+
+/** Declarative settings (Obsidian 1.13+), so they also show up in the settings search. */
 export class StickySettingTab extends PluginSettingTab {
 	constructor(app: App, private plugin: StickyFoldersPlugin) {
 		super(app, plugin);
 	}
 
-	display(): void {
-		const { containerEl } = this;
-		const s = this.plugin.settings;
+	getSettingDefinitions(): SettingDefinitionItem<Key>[] {
 		const t = strings();
-		containerEl.empty();
+		const s = this.plugin.settings;
+		return [
+			{
+				name: t.rowsName,
+				desc: t.rowsDesc,
+				control: { type: 'slider', key: 'maxRows', min: 1, max: 8, step: 1, defaultValue: DEFAULT_SETTINGS.maxRows },
+			},
+			{
+				name: t.mergeName,
+				desc: t.mergeDesc,
+				control: {
+					type: 'dropdown',
+					key: 'mergeMode',
+					options: { deep: t.mergeDeep, outer: t.mergeOuter },
+					defaultValue: DEFAULT_SETTINGS.mergeMode,
+				},
+			},
+			{
+				name: t.guideName,
+				desc: t.guideDesc,
+				control: { type: 'toggle', key: 'guideHover', defaultValue: DEFAULT_SETTINGS.guideHover },
+			},
+			{
+				name: t.clickName,
+				desc: t.clickDesc,
+				control: { type: 'toggle', key: 'guideClick', defaultValue: DEFAULT_SETTINGS.guideClick, disabled: () => !s.guideHover },
+			},
+		];
+	}
 
-		new Setting(containerEl)
-			.setName(t.rowsName)
-			.setDesc(t.rowsDesc)
-			.addSlider(slider => slider
-				.setLimits(1, 8, 1)
-				.setValue(s.maxRows)
-				.setDynamicTooltip()
-				.onChange(async value => {
-					s.maxRows = value;
-					await this.plugin.saveSettings();
-				}));
+	getControlValue(key: string): unknown {
+		return this.plugin.settings[key as Key];
+	}
 
-		new Setting(containerEl)
-			.setName(t.mergeName)
-			.setDesc(t.mergeDesc)
-			.addDropdown(dropdown => dropdown
-				.addOption('deep', t.mergeDeep)
-				.addOption('outer', t.mergeOuter)
-				.setValue(s.mergeMode)
-				.onChange(async value => {
-					s.mergeMode = value === 'outer' ? 'outer' : 'deep';
-					await this.plugin.saveSettings();
-				}));
-
-		new Setting(containerEl)
-			.setName(t.guideName)
-			.setDesc(t.guideDesc)
-			.addToggle(toggle => toggle
-				.setValue(s.guideHover)
-				.onChange(async value => {
-					s.guideHover = value;
-					await this.plugin.saveSettings();
-					this.display();
-				}));
-
-		new Setting(containerEl)
-			.setName(t.clickName)
-			.setDesc(t.clickDesc)
-			.setDisabled(!s.guideHover)
-			.addToggle(toggle => toggle
-				.setValue(s.guideClick)
-				.setDisabled(!s.guideHover)
-				.onChange(async value => {
-					s.guideClick = value;
-					await this.plugin.saveSettings();
-				}));
+	async setControlValue(key: string, value: unknown): Promise<void> {
+		const s = this.plugin.settings;
+		if (key === 'maxRows' && typeof value === 'number') s.maxRows = Math.min(8, Math.max(1, Math.round(value)));
+		else if (key === 'mergeMode') s.mergeMode = value === 'outer' ? 'outer' : 'deep';
+		else if (key === 'guideHover' && typeof value === 'boolean') s.guideHover = value;
+		else if (key === 'guideClick' && typeof value === 'boolean') s.guideClick = value;
+		else return;
+		await this.plugin.saveSettings();
+		// "Click a guide to collapse" is only available while guide hints are on.
+		if (key === 'guideHover') this.update();
 	}
 }

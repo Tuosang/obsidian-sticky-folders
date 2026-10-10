@@ -84,7 +84,7 @@ export class StickyController {
 	}
 
 	detach(): void {
-		if (this.frame) cancelAnimationFrame(this.frame);
+		if (this.frame) window.cancelAnimationFrame(this.frame);
 		this.frame = 0;
 		this.disposers.forEach(d => d());
 		this.disposers = [];
@@ -136,7 +136,7 @@ export class StickyController {
 
 	private schedule(): void {
 		if (this.frame || !this.container) return;
-		this.frame = requestAnimationFrame(() => {
+		this.frame = window.requestAnimationFrame(() => {
 			this.frame = 0;
 			this.update();
 		});
@@ -256,7 +256,8 @@ export class StickyController {
 			// Other plugins look rows up by data-path; they must keep finding the real one.
 			self.removeAttribute('data-path');
 			self.removeAttribute('draggable');
-			self.style.setProperty('margin-inline-start', '0px', 'important');
+			// The real row's inline negative margin lines it up inside its nesting; the copy isn't nested.
+			self.style.removeProperty('margin-inline-start');
 			self.dataset.sfLevel = String(nearest);
 			wrap.appendChild(self);
 
@@ -413,7 +414,7 @@ export class StickyController {
 		if (typeof folder?.setCollapsed === 'function') {
 			await folder.setCollapsed(true, false);
 			place();
-			requestAnimationFrame(place);
+			window.requestAnimationFrame(place);
 		} else {
 			// Unknown Obsidian internals: fall back to a real click, which animates.
 			self?.click();

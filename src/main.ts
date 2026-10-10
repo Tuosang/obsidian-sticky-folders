@@ -1,7 +1,6 @@
 import { Plugin } from 'obsidian';
 import type { View } from 'obsidian';
 import { StickyController } from './controller.ts';
-import type { ExplorerView } from './controller.ts';
 import { DEFAULT_SETTINGS, StickySettingTab } from './settings.ts';
 import type { StickySettings } from './settings.ts';
 
@@ -50,7 +49,7 @@ export default class StickyFoldersPlugin extends Plugin {
 		}
 		for (const view of views) {
 			if (this.controllers.has(view)) continue;
-			const controller = new StickyController(view as ExplorerView, () => this.settings);
+			const controller = new StickyController(view, () => this.settings);
 			if (controller.attach()) this.controllers.set(view, controller);
 		}
 	}

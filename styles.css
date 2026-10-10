@@ -21,6 +21,7 @@
 .sf-host .sf-item > .tree-item-self {
 	margin-top: 0;
 	margin-bottom: 0;
+	margin-inline-start: 0;
 }
 
 /* Indent guides of the levels above a pinned row. */

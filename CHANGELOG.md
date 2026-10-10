@@ -2,6 +2,13 @@
 
 All notable changes to Sticky Folders are listed here. Versions follow [semantic versioning](https://semver.org/).
 
+## 0.1.1 — 2026-10-10
+
+- Settings use Obsidian's declarative settings, so they appear in the settings search and can be reset to their defaults. Requires Obsidian 1.13 or later.
+- Passes the Obsidian community directory's ESLint rules (`npm run lint`): no styles set from code, popout-safe timers, language from Obsidian.
+- When deeper levels merge into one row, the row now names the folders of the first row visible below it. Collapsing a folder from the merged row no longer shows its previous sibling.
+- Settings: no duplicate slider value, shorter dropdown options.
+
 ## 0.1.0 — 2026-10-10
 
 First release.

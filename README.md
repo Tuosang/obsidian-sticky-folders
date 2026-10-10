@@ -8,7 +8,7 @@
 <p align="center">
   <a href="https://github.com/Tuosang/obsidian-sticky-folders/releases/latest"><img src="https://img.shields.io/github/v/release/Tuosang/obsidian-sticky-folders?label=release&color=7c3aed" alt="Latest release"></a>
   <a href="https://github.com/Tuosang/obsidian-sticky-folders/releases"><img src="https://img.shields.io/github/downloads/Tuosang/obsidian-sticky-folders/total?color=7c3aed" alt="Downloads"></a>
-  <img src="https://img.shields.io/badge/Obsidian-1.5%2B-7c3aed?logo=obsidian&logoColor=white" alt="Obsidian 1.5+">
+  <img src="https://img.shields.io/badge/Obsidian-1.13%2B-7c3aed?logo=obsidian&logoColor=white" alt="Obsidian 1.13+">
   <img src="https://img.shields.io/badge/platform-desktop%20%7C%20mobile-lightgrey" alt="Desktop and mobile">
   <a href="LICENSE"><img src="https://img.shields.io/github/license/Tuosang/obsidian-sticky-folders?color=lightgrey" alt="MIT license"></a>
 </p>
@@ -127,11 +127,13 @@ There is nothing to set up. Open the file explorer and scroll.
 | Indent guide hints | On | Highlight a folder's range and bold its name on hover |
 | Click a guide to collapse | On | Clicking an indent guide collapses its folder |
 
+The settings also show up in Obsidian's settings search, and each one has a button to reset it to the default.
+
 <p><img src="docs/images/settings.png" width="560" alt="Sticky Folders settings"></p>
 
 ## Compatibility
 
-- Obsidian 1.5 or later. Developed and tested on Obsidian 1.13.7 on macOS, and in Obsidian's mobile layout.
+- Obsidian 1.13 or later. Developed and tested on Obsidian 1.13.7 on macOS, and in Obsidian's mobile layout.
 - Works with Obsidian's core file explorer. Plugins that replace it with a view of their own are not supported.
 - Tested with the default theme (light and dark) and a community theme. If a theme looks wrong, please [open an issue](https://github.com/Tuosang/obsidian-sticky-folders/issues) with a screenshot.
 
@@ -158,6 +160,7 @@ git clone https://github.com/Tuosang/obsidian-sticky-folders.git
 cd obsidian-sticky-folders
 npm install
 npm test          # layout logic in src/layout.ts
+npm run lint      # the Obsidian community directory's ESLint rules
 npm run build     # type-check and bundle into dist/
 npm run dev       # rebuild on every change
 ```

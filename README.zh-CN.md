@@ -8,7 +8,7 @@
 <p align="center">
   <a href="https://github.com/Tuosang/obsidian-sticky-folders/releases/latest"><img src="https://img.shields.io/github/v/release/Tuosang/obsidian-sticky-folders?label=release&color=7c3aed" alt="最新版本"></a>
   <a href="https://github.com/Tuosang/obsidian-sticky-folders/releases"><img src="https://img.shields.io/github/downloads/Tuosang/obsidian-sticky-folders/total?color=7c3aed" alt="下载量"></a>
-  <img src="https://img.shields.io/badge/Obsidian-1.5%2B-7c3aed?logo=obsidian&logoColor=white" alt="Obsidian 1.5+">
+  <img src="https://img.shields.io/badge/Obsidian-1.13%2B-7c3aed?logo=obsidian&logoColor=white" alt="Obsidian 1.13+">
   <img src="https://img.shields.io/badge/platform-desktop%20%7C%20mobile-lightgrey" alt="电脑和手机">
   <a href="LICENSE"><img src="https://img.shields.io/github/license/Tuosang/obsidian-sticky-folders?color=lightgrey" alt="MIT 许可证"></a>
 </p>
@@ -127,11 +127,13 @@ Sticky Folders 还没有上架 Obsidian 社区插件市场，目前请用 BRAT �
 | 缩进线提示 | 开 | 悬停时高亮文件夹范围、加粗文件夹名 |
 | 点竖线收起文件夹 | 开 | 点击缩进竖线收起对应文件夹 |
 
+这些设置也能在 Obsidian 的设置搜索里搜到，每一项都可以一键恢复默认值。
+
 <p><img src="docs/images/settings-zh.png" width="560" alt="Sticky Folders 设置界面"></p>
 
 ## 兼容性
 
-- 需要 Obsidian 1.5 或更新版本。开发和测试环境是 macOS 上的 Obsidian 1.13.7，并在 Obsidian 的手机布局下测试过。
+- 需要 Obsidian 1.13 或更新版本。开发和测试环境是 macOS 上的 Obsidian 1.13.7，并在 Obsidian 的手机布局下测试过。
 - 支持 Obsidian 自带的文件列表。用自己的视图替换文件列表的插件不在支持范围内。
 - 在默认主题（浅色、深色）和一款社区主题下测试过。如果某个主题显示不正常，欢迎附上截图[提 issue](https://github.com/Tuosang/obsidian-sticky-folders/issues)。
 
@@ -158,6 +160,7 @@ git clone https://github.com/Tuosang/obsidian-sticky-folders.git
 cd obsidian-sticky-folders
 npm install
 npm test          # 测试 src/layout.ts 里的布局逻辑
+npm run lint      # 用 Obsidian 社区插件市场的 ESLint 规则检查代码
 npm run build     # 类型检查并打包到 dist/
 npm run dev       # 每次改动后自动重新打包
 ```
